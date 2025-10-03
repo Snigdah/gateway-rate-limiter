@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: leads-gateway-service
+  redis:
+    host: localhost
+    port: 6379
 
   cloud:
     gateway:
@@ -13,6 +16,13 @@ spring:
           uri: lb://userservice   # must match Eureka serviceId
           predicates:
             - Path=/api/users/**
+          filters:
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 2
+                redis-rate-limiter.burstCapacity: 4
+                redis-rate-limiter.requestedTokens: 1
+                key-resolver: "#{@userKeyResolver}"
 
         # Order Service Route
         - id: order-service
@@ -31,3 +41,14 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
     register-with-eureka: true
     fetch-registry: true
+
+   # if we create default for all microservice
+#  cloud:
+#    gateway:
+#      default-filters:
+#        - name: RequestRateLimiter
+#          args:
+#            redis-rate-limiter.replenishRate: 2
+#            redis-rate-limiter.burstCapacity: 4
+#            redis-rate-limiter.requestedTokens: 1
+#            key-resolver: "#{@userKeyResolver}"

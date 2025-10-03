@@ -1,0 +1,13 @@
+services:
+  redis:
+    image: redis:7
+    container_name: leads-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"    # Redis default port
+    networks:
+      - monitoring-net
+
+networks:
+  monitoring-net:
+    driver: bridge
