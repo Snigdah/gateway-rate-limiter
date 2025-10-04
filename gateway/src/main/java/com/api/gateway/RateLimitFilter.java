@@ -5,6 +5,8 @@ import io.github.bucket4j.Bucket;
 import io.github.bucket4j.BucketConfiguration;
 import io.github.bucket4j.Refill;
 import io.github.bucket4j.redis.lettuce.cas.LettuceBasedProxyManager;
+import lombok.Data;
+import lombok.Getter;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpStatus;
@@ -46,16 +48,22 @@ public class RateLimitFilter extends AbstractGatewayFilterFactory<RateLimitFilte
 
     private BucketConfiguration createBucketConfig(Config config) {
         // Define per-second limit
-        Bandwidth perSecondLimit = Bandwidth.classic(
-                config.getPerSecond(),
-                Refill.intervally(config.getPerSecond(), Duration.ofSeconds(1))
-        );
+        Bandwidth perSecondLimit = Bandwidth.builder()
+                .capacity(config.getPerSecond())
+                .refillGreedy(config.getPerSecond(), Duration.ofSeconds(1))
+                .build();
+
+        // Deprecated way
+//        Bandwidth perSecondLimit = Bandwidth.classic(
+//                config.getPerSecond(),
+//                Refill.intervally(config.getPerSecond(), Duration.ofSeconds(1))
+//        );
 
         // Define per-minute limit
-        Bandwidth perMinuteLimit = Bandwidth.classic(
-                config.getPerMinute(),
-                Refill.intervally(config.getPerMinute(), Duration.ofMinutes(1))
-        );
+        Bandwidth perMinuteLimit = Bandwidth.builder()
+                .capacity(config.getPerMinute())
+                .refillIntervally(config.getPerMinute(), Duration.ofMinutes(1))
+                .build();
 
         // Build and return the BucketConfiguration
         return BucketConfiguration.builder()
@@ -64,34 +72,11 @@ public class RateLimitFilter extends AbstractGatewayFilterFactory<RateLimitFilte
                 .build();
     }
 
+
+    @Data
     public static class Config {
         private String route;
         private int perSecond;
         private int perMinute;
-
-        // Getters and setters
-        public String getRoute() {
-            return route;
-        }
-
-        public void setRoute(String route) {
-            this.route = route;
-        }
-
-        public int getPerSecond() {
-            return perSecond;
-        }
-
-        public void setPerSecond(int perSecond) {
-            this.perSecond = perSecond;
-        }
-
-        public int getPerMinute() {
-            return perMinute;
-        }
-
-        public void setPerMinute(int perMinute) {
-            this.perMinute = perMinute;
-        }
     }
 }
