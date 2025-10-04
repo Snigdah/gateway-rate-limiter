@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: leads-gateway-service
+  redis:
+    host: localhost
+    port: 6379
 
   cloud:
     gateway:
@@ -13,12 +16,24 @@ spring:
           uri: lb://userservice   # must match Eureka serviceId
           predicates:
             - Path=/api/users/**
+          filters:
+            - name: RateLimitFilter
+              args:
+                route: /api/student/**
+                perSecond: 2
+                perMinute: 60
 
         # Order Service Route
         - id: order-service
           uri: lb://orderservice
           predicates:
             - Path=/api/orders/**
+          filters:
+            - name: RateLimitFilter
+              args:
+                route: /api/student/**
+                perSecond: 2
+                perMinute: 60
 
       discovery:
         locator:

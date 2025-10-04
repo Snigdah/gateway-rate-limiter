@@ -33,10 +33,26 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
 
-	implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
+	//implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
+	// ✅ use new non-deprecated gateway dependency
+	implementation 'org.springframework.cloud:spring-cloud-starter-gateway-server-webflux'
+
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+
+	//------------------------------For RateLimit-----------------------------------
+
+	// Reactive Redis client (Lettuce is default for Spring Boot)
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
+
+	// Modern Bucket4j for JDK17+ (compatible with JDK 21)
+	implementation 'com.bucket4j:bucket4j_jdk17-redis-common:8.12.1'
+	implementation 'com.bucket4j:bucket4j_jdk17-lettuce:8.12.1'
+
 }
 
 tasks.named('test') {
