@@ -7,33 +7,22 @@ spring:
   redis:
     host: localhost
     port: 6379
-
   cloud:
     gateway:
       routes:
-        # User Service Route
         - id: user-service
-          uri: lb://userservice   # must match Eureka serviceId
+          uri: lb://userservice
           predicates:
             - Path=/api/users/**
           filters:
             - name: RateLimitFilter
-              args:
-                route: /api/student/**
-                perSecond: 2
-                perMinute: 60
 
-        # Order Service Route
         - id: order-service
           uri: lb://orderservice
           predicates:
             - Path=/api/orders/**
           filters:
             - name: RateLimitFilter
-              args:
-                route: /api/student/**
-                perSecond: 2
-                perMinute: 60
 
       discovery:
         locator:

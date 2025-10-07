@@ -1,0 +1,140 @@
+{
+  "clients": {
+    "clientId1": {
+      "clientSecret": "B9B9CE95F8EFB74AAEE621DA447F5764",
+      "active": true,
+      "clientExpiresAt": "2025-12-31",
+      "features": {
+        "allowedEndpoints": [
+          {
+            "path": "/api/users/*",
+            "endPointExpiresAt": "2025-12-31",
+            "limits": {
+              "perSecond": 2,
+              "perMinute": 10,
+              "perHour": 1000,
+              "perDay": 9999
+            }
+          },
+          {
+            "path": "/api/centrino/*",
+            "endPointExpiresAt": "2025-12-31",
+            "limits": {
+              "perSecond": 1,
+              "perMinute": 30,
+              "perHour": 500,
+              "perDay": 9999
+            }
+          },
+          {
+            "path": "/api/finbook/**",
+            "endPointExpiresAt": "2025-12-31",
+            "limits": {
+              "perSecond": 1,
+              "perMinute": 20,
+              "perHour": 300,
+              "perDay": 9999
+            }
+          }
+        ],
+        "blockedEndpoints": [
+          "/api/auth/**",
+          "/api/admin/**",
+          "/api/license/**"
+        ]
+      }
+    },
+    "clientId2": {
+      "clientSecret": "ADFF6192F1630F0741031198E6EA3E0A",
+      "active": true,
+      "clientExpiresAt": "2025-12-31",
+      "features": {
+        "allowedEndpoints": [
+          {
+            "path": "/api/centrino/*",
+            "endPointExpiresAt": "2025-12-31",
+            "limits": {
+              "perSecond": 1,
+              "perMinute": 30,
+              "perHour": 500,
+              "perDay": 9999
+            }
+          },
+          {
+            "path": "/api/finbook/**",
+            "endPointExpiresAt": "2025-12-31",
+            "limits": {
+              "perSecond": 1,
+              "perMinute": 20,
+              "perHour": 300,
+              "perDay": 9999
+            }
+          }
+        ],
+        "blockedEndpoints": [
+          "/api/auth/**",
+          "/api/admin/**",
+          "/api/license/**"
+        ]
+      }
+    },
+    "clientId3": {
+      "clientSecret": "4A38E6C26B7F3B89ED9D9C447D55D9EB",
+      "active": true,
+      "clientExpiresAt": "2025-12-31",
+      "features": {
+        "allowedEndpoints": [
+          {
+            "path": "/api/centrino/*",
+            "endPointExpiresAt": "2025-12-31",
+            "limits": {
+              "perSecond": 1,
+              "perMinute": 30,
+              "perHour": 500,
+              "perDay": 9999
+            }
+          },
+          {
+            "path": "/api/finbook/**",
+            "endPointExpiresAt": "2025-12-31",
+            "limits": {
+              "perSecond": 1,
+              "perMinute": 20,
+              "perHour": 300,
+              "perDay": 9999
+            }
+          }
+        ],
+        "blockedEndpoints": [
+          "/api/auth/**",
+          "/api/admin/**",
+          "/api/license/**"
+        ]
+      }
+    },
+    "clientId4": {
+      "clientSecret": "393341BC2C892518D5A2091CF49387E1",
+      "active": true,
+      "clientExpiresAt": "2025-12-31",
+      "features": {
+        "allowedEndpoints": [
+          {
+            "path": "/api/centrino/*",
+            "endPointExpiresAt": "2025-12-31",
+            "limits": {
+              "perSecond": 1,
+              "perMinute": 30,
+              "perHour": 500,
+              "perDay": 9999
+            }
+          }
+        ],
+        "blockedEndpoints": [
+          "/api/auth/**",
+          "/api/admin/**",
+          "/api/license/**"
+        ]
+      }
+    }
+  }
+}
