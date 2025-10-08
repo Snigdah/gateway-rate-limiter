@@ -1,6 +1,5 @@
 # 🚀 Distributed Rate Limiting System using Redis & Spring Cloud Gateway
 
----
 
 ## 🏗️ System Architecture
 
