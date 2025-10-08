@@ -34,8 +34,9 @@ Below is the high-level architecture of the system (you can replace this with yo
 **Components:**
 1. **API Gateway** – Intercepts incoming requests and applies distributed rate limiting.
 2. **Redis** – Stores token bucket states to synchronize rate limits across gateways.
-3. **License Service** – A backend microservice used to demonstrate rate limiting.
-4. **Clients** – Send API requests through the gateway.
+3. **Kafka** — topic(s) for configuration change events (durable, ordered propagation). 
+4. **License Service** – A backend microservice used to demonstrate rate limiting.
+5. **Clients** – Send API requests through the gateway.
 
 ---
 
@@ -63,23 +64,47 @@ Below is the high-level architecture of the system (you can replace this with yo
 
 ---
 
+---
+
+## ⚙️ Why Kafka + DB + Redis?
+
+- **DB**: durable source of truth, audit, versioning.  
+- **Kafka**: reliable and replayable propagation of config changes to many consumers (gateways).  
+- **Redis**: low-latency token state for global/consistent rate limits across gateway instances.
+
+This hybrid approach gives you durability, low latency, and scalability.
+
+---
+
 ## 🐳 Docker Setup
 
 You can run the entire environment using **Docker Compose**.
 
 ```yaml
 version: "3.8"
-
 services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    ports:
+      - "9092:9092"
+
   redis:
     image: redis:7
-    container_name: leads-redis
-    restart: unless-stopped
     ports:
       - "6379:6379"
-    networks:
-      - monitoring-net
-
-networks:
-  monitoring-net:
-    driver: bridge
