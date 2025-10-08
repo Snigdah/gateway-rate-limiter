@@ -14,7 +14,6 @@
 5. **License Service** – A backend microservice used to demonstrate rate limiting.
 6. **Clients** – Send API requests through the gateway.
 
----
 
 ## 🧠 Overview
 Client-specific rate limit rules are defined per `clientId` and per endpoint.  
