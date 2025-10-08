@@ -11,8 +11,7 @@
 ---
 
 ## 🧠 Overview
-The system ensures **fair and consistent request throttling** across multiple gateway instances using a centralized Redis backend.
-Client-specific rate limit rules are defined per `clientId` and per endpoint. The **License Service** (Admin) is the authoritative configuration writer — it persists config to the database and publishes change events to Kafka. Gateways consume those events and update their local cache and Bucket4j buckets accordingly.
+Client-specific rate limit rules are defined per `clientId` and per endpoint. The **License Service** (Admin) is the authoritative configuration writer — it persists config to the database and publishes change events to **Kafka**. Gateways consume those events and update their local cache and **Bucket4j** buckets accordingly.
 
 ---
 
