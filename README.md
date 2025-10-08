@@ -23,7 +23,7 @@ The **Redis** backend stores the distributed Bucket4j token states, ensuring con
 
 Below is the high-level architecture of the system (you can replace this with your own `draw.io` diagram):
 
-![System Architecture](./docs/system-architecture.png)
+![Healthcare System Architecture](https://github.com/Snigdah/images/blob/main/Ratelimit.png)
 
 **Components:**
 1. **Spring Cloud Gateway** – Intercepts incoming requests and applies distributed rate limiting.
