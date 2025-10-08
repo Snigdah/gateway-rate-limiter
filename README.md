@@ -11,7 +11,11 @@
 ---
 
 ## 🧠 Overview
-Client-specific rate limit rules are defined per `clientId` and per endpoint. The **License Service** (Admin) is the authoritative configuration writer — it persists config to the database and publishes change events to **Kafka**. Gateways consume those events and update their local cache and **Bucket4j** buckets accordingly.
+Client-specific rate limit rules are defined per `clientId` and per endpoint.  
+The **License Service** saves configuration data to the database and **publishes update events to Kafka** whenever limits or endpoints change.  
+All **API Gateways** consume these Kafka events to automatically refresh their in-memory cache and update Bucket4j configurations without restart.  
+The **Redis** backend stores the distributed Bucket4j token states, ensuring consistent rate limiting across multiple gateway instances in a clustered environment.
+
 
 ---
 
