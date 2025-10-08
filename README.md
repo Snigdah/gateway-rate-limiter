@@ -42,6 +42,18 @@ Below is the high-level architecture of the system (you can replace this with yo
 
 ---
 
+## ⚙️ Why Kafka + DB + Redis?
+
+- **DB**: durable source of truth, audit, versioning.  
+- **Kafka**: reliable and replayable propagation of config changes to many consumers (gateways).  
+- **Redis**: low-latency token state for global/consistent rate limits across gateway instances.
+
+This hybrid approach gives you durability, low latency, and scalability.
+
+---
+
+---
+
 ## 🧩 Tech Stack
 
 | Layer | Technology |
@@ -53,18 +65,6 @@ Below is the high-level architecture of the system (you can replace this with yo
 | Cache / Storage | Redis 7.x |
 | Build Tool | Gradle / Maven |
 | Container | Docker & Docker Compose |
-
----
-
----
-
-## ⚙️ Why Kafka + DB + Redis?
-
-- **DB**: durable source of truth, audit, versioning.  
-- **Kafka**: reliable and replayable propagation of config changes to many consumers (gateways).  
-- **Redis**: low-latency token state for global/consistent rate limits across gateway instances.
-
-This hybrid approach gives you durability, low latency, and scalability.
 
 ---
 
