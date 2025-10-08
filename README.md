@@ -3,7 +3,6 @@
 
 ## 🏗️ System Architecture
 
-Below is the high-level architecture of the system (you can replace this with your own `draw.io` diagram):
 
 ![Healthcare System Architecture](https://github.com/Snigdah/images/blob/main/Ratelimit.png)
 
