@@ -42,8 +42,6 @@ This hybrid approach gives you durability, low latency, and scalability.
 
 ---
 
----
-
 ## 🧩 Tech Stack
 
 | Layer | Technology |
