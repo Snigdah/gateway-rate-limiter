@@ -1,22 +1,5 @@
 # 🚀 Distributed Rate Limiting System using Redis & Spring Cloud Gateway
 
-![Java](https://img.shields.io/badge/Java-21-blue)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen)
-![Redis](https://img.shields.io/badge/Redis-7.x-red)
-![Kafka](https://img.shields.io/badge/Kafka-3.x-orange)
-![Bucket4j](https://img.shields.io/badge/Bucket4j-8.x-yellow)
-![License Service](https://img.shields.io/badge/Service-License%20Service-orange)
-![Status](https://img.shields.io/badge/Status-Active-success)
-
----
-
-## 🧠 Overview
-Client-specific rate limit rules are defined per `clientId` and per endpoint.  
-The **License Service** saves configuration data to the database and **publishes update events to Kafka** whenever limits or endpoints change.  
-All **API Gateways** consume these Kafka events to automatically refresh their in-memory cache and update Bucket4j configurations without restart.  
-The **Redis** backend stores the distributed Bucket4j token states, ensuring consistent rate limiting across multiple gateway instances in a clustered environment.
-
-
 ---
 
 ## 🏗️ System Architecture
@@ -34,6 +17,14 @@ Below is the high-level architecture of the system (you can replace this with yo
 6. **Clients** – Send API requests through the gateway.
 
 ---
+---
+
+## 🧠 Overview
+Client-specific rate limit rules are defined per `clientId` and per endpoint.  
+The **License Service** saves configuration data to the database and **publishes update events to Kafka** whenever limits or endpoints change.  
+All **API Gateways** consume these Kafka events to automatically refresh their in-memory cache and update Bucket4j configurations without restart.  
+The **Redis** backend stores the distributed Bucket4j token states, ensuring consistent rate limiting across multiple gateway instances in a clustered environment.
+
 
 ## ⚙️ Key Features
 
