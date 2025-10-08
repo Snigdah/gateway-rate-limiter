@@ -11,15 +11,6 @@
 ---
 
 ## 🧠 Overview
-
-This project implements a **distributed rate-limiting system** using:
-
-- **Spring Cloud Gateway** for API routing  
-- **Bucket4j** for rate-limiting logic  
-- **Redis** as a shared distributed cache
-- **Kafka** for reliable, real-time propagation of configuration changes  
-- **License Service** as an example backend microservice  
-
 The system ensures **fair and consistent request throttling** across multiple gateway instances using a centralized Redis backend.
 Client-specific rate limit rules are defined per `clientId` and per endpoint. The **License Service** (Admin) is the authoritative configuration writer — it persists config to the database and publishes change events to Kafka. Gateways consume those events and update their local cache and Bucket4j buckets accordingly.
 
@@ -32,11 +23,12 @@ Below is the high-level architecture of the system (you can replace this with yo
 ![System Architecture](./docs/system-architecture.png)
 
 **Components:**
-1. **API Gateway** – Intercepts incoming requests and applies distributed rate limiting.
-2. **Redis** – Stores token bucket states to synchronize rate limits across gateways.
-3. **Kafka** — topic(s) for configuration change events (durable, ordered propagation). 
-4. **License Service** – A backend microservice used to demonstrate rate limiting.
-5. **Clients** – Send API requests through the gateway.
+1. **Spring Cloud Gateway** – Intercepts incoming requests and applies distributed rate limiting.
+2. **Bucket4j** for rate-limiting logic  
+3. **Redis** – Stores token bucket states to synchronize rate limits across gateways.
+4. **Kafka** — topic(s) for configuration change events (durable, ordered propagation). 
+5. **License Service** – A backend microservice used to demonstrate rate limiting.
+6. **Clients** – Send API requests through the gateway.
 
 ---
 
