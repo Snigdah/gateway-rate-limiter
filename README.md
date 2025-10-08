@@ -17,7 +17,6 @@ Below is the high-level architecture of the system (you can replace this with yo
 6. **Clients** – Send API requests through the gateway.
 
 ---
----
 
 ## 🧠 Overview
 Client-specific rate limit rules are defined per `clientId` and per endpoint.  
