@@ -1,0 +1,41 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: license
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/license
+    username: postgres
+    password: 12345
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 30000
+
+  kafka:
+    host: localhost
+    port: 9092
+    producer:
+      acks: all
+      retries: 3
+      enable-idempotence: true
+      linger-ms: 5
+      batch-size: 16384
+      buffer-memory: 33554432
+    topic:
+      client-license: client-license-events
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+app:
+  kafka:
+    topic:
+      client-license: client-license-events
